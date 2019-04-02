@@ -1,0 +1,45 @@
+﻿@using Entity
+@model WordRequest
+
+<style>
+    .container {
+        width: 500px;
+        margin: auto;
+        margin-top: 200px;
+    }
+
+    .control-label{
+        background-color:antiquewhite;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary()
+        </div>
+    }
+
+    <div class="container">
+        <div class="form-group">
+
+            @Html.LabelFor(x => x.Language, new { @class="control-label"})
+
+            @Html.DropDownListFor(x => x.LanguageId, (IEnumerable<SelectListItem>)ViewBag.Langs, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+
+            @Html.LabelFor(x => x.Word, new { @class = "control-label"})
+
+            @Html.TextBoxFor(x => x.Word, new { @class = "form-control", @placeholder = "İstediğiniz kelime", @required = "required" })
+            @Html.ValidationMessageFor(x => x.Word) @*hemen yanında hata vermesi için bu şekilde gösteriyoruz*@
+        </div>
+
+        <div class="text-right">
+            @Html.ActionLink("Vazgeç", "Index", null, new { @class = "btn btn-danger" })
+            <button class="btn btn-primary">Gönder</button>
+        </div>
+    </div>
+}
